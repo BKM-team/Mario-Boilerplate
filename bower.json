@@ -1,0 +1,19 @@
+{
+  "name": "mario-boilerplate",
+  "version": "0.0.0",
+  "authors": [
+    "Michal Miszczyszyn <michal@mmiszy.pl>"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "phaser": "~2.1.2"
+  }
+}
