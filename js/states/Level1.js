@@ -1,7 +1,8 @@
 'use strict';
 
-var JUMP_VELOCITY;
 var WORLD_GRAVITY = 600;
+var WALKING_VELOCITY = 130;
+var JUMP_VELOCITY = (0.26 * WORLD_GRAVITY + 130);
 
 function Level1() {}
 
@@ -28,8 +29,6 @@ Level1.prototype = {
         this.player = this.game.add.sprite(100, 0, 'player');
         this.game.physics.arcade.enable(this.player);
         this.player.body.gravity.y = WORLD_GRAVITY;
-
-        JUMP_VELOCITY = (0.26 * this.player.body.gravity.y + 130);
 
         this.player.body.collideWorldBounds = true;
 
@@ -76,10 +75,10 @@ Level1.prototype = {
         }
 
         if (this.cursors.right.isDown) {
-            this.player.body.velocity.x = 150;
+            this.player.body.velocity.x = WALKING_VELOCITY;
             this.player.animations.play('walkRight');
         } else if (this.cursors.left.isDown) {
-            this.player.body.velocity.x = -150;
+            this.player.body.velocity.x = -WALKING_VELOCITY;
             this.player.animations.play('walkLeft');
         } else {
             if (this.player.body.lastFacing === Phaser.LEFT) {
