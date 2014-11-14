@@ -3,9 +3,8 @@
 function Preload() {}
 
 Preload.prototype = {
-    preloadBar: Phaser.Sprite,
-
     preload: function preload() {
+        document.querySelector('html').style.background = 'black';
         this.preloadBar = this.add.sprite(this.world.centerX, this.world.centerY, 'preloadBar');
         this.preloadBar.anchor.setTo(0.5, 0.5);
         this.load.setPreloadSprite(this.preloadBar);
@@ -19,6 +18,10 @@ Preload.prototype = {
         this.load.image('block', 'tilemaps/block.png');
         this.load.image('bonus', 'tilemaps/bonus.png');
         this.load.image('power', 'tilemaps/power.png');
+
+        this.load.spritesheet('buttonHorizontal', 'images/button-horizontal.png', 96, 64);
+        this.load.spritesheet('buttonA', 'images/button-round-a.png', 96, 96);
+        this.load.spritesheet('buttonB', 'images/button-round-b.png', 96, 96);
 
         this.load.spritesheet('player', 'images/player.png', 16, 16);
     },

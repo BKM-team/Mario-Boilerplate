@@ -12,6 +12,8 @@ Level1.prototype = {
     },
 
     create: function create() {
+        var game = this.game;
+
         this.map = this.add.tilemap('super_mario_map');
         this.map.addTilesetImage('SuperMarioBros-World1-1', 'super_mario_tiles');
         this.backgroundLayer = this.map.createLayer('backgroundLayer');
@@ -55,6 +57,49 @@ Level1.prototype = {
         this.timerText = game.add.text(game.width - 35, 10, '', { font: '6pt Nesfont', fill: '#fff', align: 'center' });
         this.timerText.fixedToCamera = true;
         this.updateTimer();
+
+        this.dpad = {};
+        this.padButtons = {};
+
+        var buttonLeft = game.add.button(20, game.height - 55, 'buttonHorizontal', null, this, 0, 0, 1, 0);  //game, x, y, key, callback, callbackContext, overFrame, outFrame, downFrame, upFrame
+        buttonLeft.fixedToCamera = true;
+        buttonLeft.events.onInputDown.add(function () {
+            this.dpad.left = true;
+        }, this);
+        buttonLeft.events.onInputUp.add(function () {
+            this.dpad.left = false;
+        }, this);
+        buttonLeft.scale.setTo(0.3);
+
+        var buttonRight = game.add.button(55, game.height - 55, 'buttonHorizontal', null, this, 0, 0, 1, 0);  //game, x, y, key, callback, callbackContext, overFrame, outFrame, downFrame, upFrame
+        buttonRight.fixedToCamera = true;
+        buttonRight.events.onInputDown.add(function () {
+            this.dpad.right = true;
+        }, this);
+        buttonRight.events.onInputUp.add(function () {
+            this.dpad.right = false;
+        }, this);
+        buttonRight.scale.setTo(0.3);
+
+        var buttonFire = game.add.button(game.width - 70, game.height - 40, 'buttonA', null, this, 0, 0, 1, 0);
+        buttonFire.fixedToCamera = true;
+        buttonFire.events.onInputDown.add(function () {
+            this.padButtons.A = true;
+        }, this);
+        buttonFire.events.onInputUp.add(function () {
+            this.padButtons.A = false;
+        }, this);
+        buttonFire.scale.setTo(0.3);
+
+        var buttonJump = game.add.button(game.width - 40, game.height - 70, 'buttonB', null, this, 0, 0, 1, 0);
+        buttonJump.fixedToCamera = true;
+        buttonJump.events.onInputDown.add(function () {
+            this.padButtons.B = true;
+        }, this);
+        buttonJump.events.onInputUp.add(function () {
+            this.padButtons.B = false;
+        }, this);
+        buttonJump.scale.setTo(0.3);
     },
 
     setScoreboardText: function setScoreboardText() {
@@ -74,10 +119,10 @@ Level1.prototype = {
             this.player.body.lastFacing = this.player.body.facing;
         }
 
-        if (this.cursors.right.isDown) {
+        if (this.cursors.right.isDown || this.dpad.right) {
             this.player.body.velocity.x = WALKING_VELOCITY;
             this.player.animations.play('walkRight');
-        } else if (this.cursors.left.isDown) {
+        } else if (this.cursors.left.isDown || this.dpad.left) {
             this.player.body.velocity.x = -WALKING_VELOCITY;
             this.player.animations.play('walkLeft');
         } else {
@@ -88,7 +133,7 @@ Level1.prototype = {
             }
             this.player.body.velocity.x = 0;
         }
-        if (this.cursors.up.isDown) {
+        if (this.cursors.up.isDown || this.padButtons.A) {
             this.playerJump();
         }
 
