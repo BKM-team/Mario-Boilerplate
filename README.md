@@ -1,6 +1,8 @@
 # Mario Boilerplate
 
-To run this you need any HTTP Server.
+Run `bower install` to get dependencies.
+
+To play the game you needv any HTTP server:
 
 `python -m SimpleHTTPServer`
 
